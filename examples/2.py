@@ -4,19 +4,21 @@
 
 def benchmark(func):
     import time
-    def wrapper():
+    def wrapper(*args, **kwargs):
         start = time.time()
-        func()
+        return_value = func(*args, **kwargs)
         end = time.time()
         print('[*] Время выполнения: {} секунд.'.format(end - start))
+        return return_value
 
     return wrapper
 
 
 @benchmark
-def fetch_webpage():
+def fetch_webpage(url):
     import requests
-    webpage = requests.get('https://google.com')
+    webpage = requests.get(url)
+    return webpage.text
 
 
 def decorator_function(func):
@@ -44,3 +46,4 @@ if __name__ == '__main__':
     # fetch_webpage()
 
     print('\nПример №6')
+    print(fetch_webpage('https://google.com'))
